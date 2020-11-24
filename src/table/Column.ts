@@ -40,7 +40,7 @@ export class IdentifierColumn extends Column
         this.getColumn().push(row)
     }
 
-    public initialize(): void { }
+    public initialize(): void { } // Is initialized in Table.ts
 
 }
 
@@ -54,10 +54,11 @@ export class UnaryColumn extends Column
     {
         let operator
 
+        // Generate string representation
         switch (tree.getOperator())
         {
             case TokenType.NOT:
-                operator = "¬"
+                operator = "￢"
                 break
         }
 
@@ -76,7 +77,7 @@ export class UnaryColumn extends Column
             switch (tree.getOperator())
             {
                 case TokenType.NOT:
-                    column.push(!row)
+                    column.push(!row) // Apply not operation
                     break
             }
         }
@@ -114,6 +115,7 @@ export class BinaryColumn extends Column
                 break
         }
 
+        // Generate string representation
         let leftString = left.getString()
         let rightString = right.getString()
 
@@ -134,6 +136,7 @@ export class BinaryColumn extends Column
         let left = this.left.getColumn()
         let right = this.right.getColumn()
 
+        // Apply operator
         for (let i = 0; i < left.length; i++)
         {
             switch (tree.getOperator())

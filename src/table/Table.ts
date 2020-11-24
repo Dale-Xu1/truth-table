@@ -20,11 +20,13 @@ class Table
     {
         if (row.length < this.identifiers.length)
         {
+            // Recurive pattern produces all combinations of true/false values
             this.initializeIdentifiers(...row, true)
             this.initializeIdentifiers(...row, false)
         }
         else
         {
+            // Row has been generated and can be added to table
             for (let i = 0; i < row.length; i++)
             {
                 this.identifiers[i].add(row[i])
@@ -45,6 +47,7 @@ class Table
     {
         let tree = identifier.getTree()
 
+        // Check to see if matching identifier exists
         for (let i = 0; i < this.identifiers.length; i++)
         {
             let existing = this.identifiers[i]
@@ -55,6 +58,7 @@ class Table
             }
         }
 
+        // Add identifier to list
         this.identifiers.push(identifier)
         return identifier
     }
@@ -63,6 +67,7 @@ class Table
     {
         let tree = column.getTree()
 
+        // Check if matching expression exists in table
         for (let i = 0; i < this.columns.length; i++)
         {
             let existing = this.columns[i]
@@ -73,6 +78,7 @@ class Table
             }
         }
 
+        // Add column
         this.columns.push(column)
         return column
     }

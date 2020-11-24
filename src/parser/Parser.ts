@@ -19,6 +19,7 @@ class Parser
     {
         try
         {
+            // Parse expression and expect equation to end
             let tree = this.bicondition()
             this.expect(TokenType.END_OF_INPUT)
             
@@ -26,6 +27,7 @@ class Parser
         }
         catch (e)
         {
+            // Log errors that occur
             console.error(e.message)
             return null
         }
@@ -33,6 +35,7 @@ class Parser
 
     private bicondition(): Tree
     {
+        // Parses binary expression
         let left = this.condition()
 
         while (this.match(TokenType.BICONDITION))
@@ -85,6 +88,7 @@ class Parser
 
     private not(): Tree
     {
+        // Parses unary expression
         if (this.match(TokenType.NOT))
         {
             return new UnaryTree(TokenType.NOT, this.not())
@@ -99,10 +103,12 @@ class Parser
 
         if (this.match(TokenType.IDENTIFIER))
         {
+            // Identifiers are the only type of literal
             return new IdentifierTree(token.getValue())
         }
         else if (this.match(TokenType.PAREN_OPEN))
         {
+            // Returns precedence back to root
             let tree = this.bicondition()
             this.expect(TokenType.PAREN_CLOSE)
 
@@ -115,18 +121,22 @@ class Parser
 
     private expect(type: TokenType): void
     {
+        // Attemps match
         let token = this.token
         if (this.match(type)) return
 
+        // Results in error if it doesn't
         throw new Error(`[${token.getLocation()}] Expected [${TokenType[type]}] but got [${TokenType[token.getType()]}] "${token.getValue()}"`)
     }
     
     private match(type: TokenType): boolean
     {
+        // Tests if current token is of a certain type
         let result = this.token.getType() === type
 
         if (result)
         {
+            // Moves onto next token if successful
             this.token = this.lexer.next()
         }
 

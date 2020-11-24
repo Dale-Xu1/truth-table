@@ -42,16 +42,18 @@ class Lexer
 
     public next(): Token
     {
+        // Skip whitespace
         this.skipWhitespace();
         let current = this.getCurrent();
 
         let token = null
 
+        // Test for one character tokens
         switch (current)
         {
             case "\0": return new Token(this.index, TokenType.END_OF_INPUT, current)
 
-            case "¬":
+            case "￢":
                 token = new Token(this.index, TokenType.NOT, current)
                 break
 
@@ -80,10 +82,12 @@ class Lexer
                 break
 
             default:
+                // Test for identifier
                 if (this.isIdentifier(current))
                 {
                     let start = this.index;
         
+                    // Identifiers can be any length
                     while (this.isIdentifier(this.getCurrent()))
                     {
                         this.nextChar();
@@ -102,6 +106,7 @@ class Lexer
 
     private skipWhitespace(): void
     {
+        // Skip character until non-whitespace is found
         while (/[ \t\n\r]/.test(this.getCurrent()))
         {
             this.nextChar();
@@ -121,6 +126,7 @@ class Lexer
 
     private lookahead(offset: number): string
     {
+        // Get character at index and \0 if out of bounds
         let index = this.index + offset;
         return index < this.data.length ? this.data[index] : "\0";
     }

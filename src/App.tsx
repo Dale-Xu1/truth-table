@@ -21,6 +21,8 @@ class App extends React.Component<Props>
         table: null
     }
 
+    private inputRef = React.createRef<HTMLInputElement>()
+
 
     public constructor(props: Props)
     {
@@ -34,12 +36,15 @@ class App extends React.Component<Props>
     private handleSubmit(e: FormEvent)
     {
         e.preventDefault()
+        this.inputRef.current!.focus()
 
+        // Parse equation
         let parser = new Parser(this.state.equation)
         let tree = parser.parse()
 
         if (tree !== null)
         {
+            // Compile tree to table
             let table = new Table()
 
             table.compile(tree)
@@ -49,17 +54,31 @@ class App extends React.Component<Props>
 
     private handleChange(e: ChangeEvent<HTMLInputElement>)
     {
-        this.setState({ equation: e.target.value });
+        // When equation changes
+        this.setState({ equation: e.target.value })
+    }
+
+    private handleAdd(char: string)
+    {
+        this.setState({ equation: this.state.equation + char })
+        this.inputRef.current!.focus()
     }
 
     public render(): React.ReactElement
     {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" value={this.state.equation} onChange={this.handleChange} />
-                    <input type="submit" value="Generate" />
-                </form>
+                <div className="main">
+                    <form onSubmit={this.handleSubmit}>
+                        <input type="text" value={this.state.equation} onChange={this.handleChange} ref={this.inputRef} />
+                        <input type="submit" value="Generate" />
+                    </form>
+                    <button onClick={() => this.handleAdd("￢")}>￢</button>
+                    <button onClick={() => this.handleAdd("∧")}>∧</button>
+                    <button onClick={() => this.handleAdd("∨")}>∨</button>
+                    <button onClick={() => this.handleAdd("→")}>→</button>
+                    <button onClick={() => this.handleAdd("↔")}>↔</button>
+                </div>
                 {
                     this.state.table !== null ?
                         <div className="table">
