@@ -114,7 +114,13 @@ export class BinaryColumn extends Column
                 break
         }
 
-        super(tree, `${left.getString()} ${operator} ${right.getString()}`)
+        let leftString = left.getString()
+        let rightString = right.getString()
+
+        if (left instanceof BinaryColumn) leftString = `(${leftString})`
+        if (right instanceof BinaryColumn) rightString = `(${rightString})`
+
+        super(tree, `${leftString} ${operator} ${rightString}`)
         this.left = left
         this.right = right
     }
