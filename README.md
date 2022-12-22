@@ -6,6 +6,8 @@ If you don't want to clone the repository, the project is hosted at this link: h
 
 To "show work", it creates intermediary columns along the way for how it got the final column. That part was only written because I didn't want to do my homework  in math freshman year of high school. It uses an abstract syntax tree system to analyze the expression in order to find the steps, so it also supports removing duplicate expressions.
 
+Note that there is no error feedback in the programm (which is pretty bad UX). Error messages are logged in the console if you want them.
+
 ## Examples
 
 This is the output for the expression: ￢a ∧ b ∨ c
