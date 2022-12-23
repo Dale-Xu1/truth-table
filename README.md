@@ -10,15 +10,15 @@ Note that there is no error feedback in the programm (which is pretty bad UX). E
 
 ## Examples
 
-This is the output for the expression: ￢a ∧ b ∨ c
+This is the output for the expression: `￢a ∧ b ∨ c`
 
-|a|b|c|￢a|￢a ∧ b|(￢a ∧ b) ∨ c|
-|-|-|-|-|-|-|
-|T|T|T|F|F|T|
-|T|T|F|F|F|F|
-|T|F|T|F|F|T|
-|T|F|F|F|F|F|
-|F|T|T|T|T|T|
-|F|T|F|T|T|T|
-|F|F|T|T|F|T|
-|F|F|F|T|F|F|
+a|b|c|￢a|￢a ∧ b|(￢a ∧ b) ∨ c
+-|-|-|-|-|-
+T|T|T|F|F|T
+T|T|F|F|F|F
+T|F|T|F|F|T
+T|F|F|F|F|F
+F|T|T|T|T|T
+F|T|F|T|T|T
+F|F|T|T|F|T
+F|F|F|T|F|F
